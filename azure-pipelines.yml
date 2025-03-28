@@ -15,13 +15,6 @@ variables:
   LT_ACCESS_KEY: 'GhGShOYHz1jODWE9qDvkJK4nPDR3n2lc0gNp9VknalhwtUineG'
 
 steps:
-
-- task: configuration@1
-  inputs:
-    connection: 'tunnelVarun'
-    isTunnelActivate: false
-    isAppAutomate: false
-    isSmartUI: false
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
