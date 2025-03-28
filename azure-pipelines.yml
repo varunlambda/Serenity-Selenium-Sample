@@ -10,6 +10,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  LT_USERNAME: 'varunkumarb'
+  LT_ACCESS_KEY: 'GhGShOYHz1jODWE9qDvkJK4nPDR3n2lc0gNp9VknalhwtUineG'
+
 steps:
 
 - task: configuration@1
