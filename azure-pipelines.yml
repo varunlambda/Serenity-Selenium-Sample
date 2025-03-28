@@ -23,6 +23,13 @@ steps:
     cacheHitVar: 'CACHE_RESTORED'
     displayName: 'Cache Maven dependencies'
 
+- task: configuration@1
+  inputs:
+    connection: 'tunnelVarun'
+    isTunnelActivate: true
+    isAppAutomate: false
+    isSmartUI: false
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
