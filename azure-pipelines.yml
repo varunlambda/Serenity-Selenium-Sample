@@ -1,0 +1,47 @@
+# Maven
+
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  LT_USERNAME: 'username'
+  LT_ACCESS_KEY: 'accessKey'
+
+steps:
+
+- task: Cache@2
+  inputs:
+    key: 'maven | "pom.xml"'
+    path: '~/.m2/repository'
+    cacheHitVar: 'CACHE_RESTORED'
+    displayName: 'Cache Maven dependencies'
+
+- task: configuration@1
+  inputs:
+    connection: 'tunnelVarun'
+    isTunnelActivate: true
+    isAppAutomate: false
+    isSmartUI: false
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+    
+- script: |
+    echo "Running mvn verify with profile 'single'"
+    mvn verify -P parallel
+    displayName: 'Run mvn verify with Profile: single'
